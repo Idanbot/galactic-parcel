@@ -8,10 +8,11 @@ const {
   archiveParcel,
 } = require('../controllers/parcel_controller');
 
-router.post('/', createParcel);
-router.patch('/:id/status', updateParcelStatus);
 router.get('/:id', getParcelStatus);
 router.get('/:id/history', getParcelHistory);
+router.post('/', createParcel);
 router.post('/:id/archive', archiveParcel);
+router.patch('/:id/status', updateParcelStatus);
+
 
 module.exports = router;
