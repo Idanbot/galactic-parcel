@@ -97,10 +97,10 @@ describe("Parcel API Tests", () => {
       .post(BASE_URL)
       .send({ parcelId, status: "Preparing", ttl: 7 }); // TTL = 7 sec
 
-    await new Promise((res) => setTimeout(res, 10000)); // wait 10 sec
+    await new Promise((res) => setTimeout(res, 8000)); // wait 8 sec
 
     const archived = await ParcelArchive.findOne({ parcelId });
     expect(archived).toBeTruthy();
     expect(archived.statusHistory[0].status).toBe("Preparing");
-  }, 120000);
+  }, 15000);
 });
