@@ -1,7 +1,7 @@
 const { redis } = require("../services/redis_service");
 const { archiveParcelById } = require("../utils/archive_helper");
 
-async function runArchiveSweep(thresholdSeconds = 10) {
+async function runArchiveSweep(thresholdSeconds = 10) { // short threshold for dev/test, in prod higher would be better
   const keys = await redis.keys("PARCEL:*");
 
   for (const key of keys) {

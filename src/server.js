@@ -33,7 +33,7 @@ if (require.main === module) {
   });
 }
 
-cron.schedule("*/5 * * * * *", () => {
+cron.schedule("*/5 * * * * *", () => { // short cron only for dev/test, for prod 1hr would be better
   runArchiveSweep().catch((err) => console.error("Cron error:", err));
 });
 
