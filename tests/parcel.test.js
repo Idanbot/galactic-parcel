@@ -89,4 +89,18 @@ describe("Parcel API Tests", () => {
     const res = await request(app).get(`${BASE_URL}/NONEXISTENT`);
     expect(res.statusCode).toBe(404);
   });
+
+  it("Parcel is archived automatically after TTL expiry", async () => {
+    const parcelId = "EXPIRY-TEST";
+
+    await request(app)
+      .post(BASE_URL)
+      .send({ parcelId, status: "Preparing", ttl: 7 }); // TTL = 7 sec
+
+    await new Promise((res) => setTimeout(res, 10000)); // wait 10 sec
+
+    const archived = await ParcelArchive.findOne({ parcelId });
+    expect(archived).toBeTruthy();
+    expect(archived.statusHistory[0].status).toBe("Preparing");
+  }, 120000);
 });
